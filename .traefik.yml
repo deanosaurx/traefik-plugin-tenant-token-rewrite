@@ -3,6 +3,6 @@ type: middleware
 import: github.com/deanosaurx/traefik-plugin-tenant-token-rewrite
 summary: Rewrite /openid-connect/token to Keycloak realm path based on tenant host.
 testData:
-  domainSuffix: dev7.plainid.cloud
+  domainSuffix: example.com
   sourcePath: /openid-connect/token
   targetTemplate: /auth/realms/{tenant}/protocol/openid-connect/token

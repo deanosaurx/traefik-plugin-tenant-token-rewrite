@@ -16,7 +16,7 @@ func TestRewriteMatchesTenantHost(t *testing.T) {
 	})
 
 	mw, err := New(context.Background(), next, &Config{
-		DomainSuffix:   "dev7.plainid.cloud",
+		DomainSuffix:   "example.com",
 		SourcePath:     "/openid-connect/token",
 		TargetTemplate: "/auth/realms/{tenant}/protocol/openid-connect/token",
 	}, "tenant-token-rewrite")
@@ -24,14 +24,14 @@ func TestRewriteMatchesTenantHost(t *testing.T) {
 		t.Fatalf("New() error = %v", err)
 	}
 
-	req := httptest.NewRequest(http.MethodPost, "http://beta.dev7.plainid.cloud/openid-connect/token", nil)
-	req.Host = "beta.dev7.plainid.cloud"
+	req := httptest.NewRequest(http.MethodPost, "http://test.example.com/openid-connect/token", nil)
+	req.Host = "test.example.com"
 	rr := httptest.NewRecorder()
 
 
 	mw.ServeHTTP(rr, req)
 
-	want := "/auth/realms/beta/protocol/openid-connect/token"
+	want := "/auth/realms/test/protocol/openid-connect/token"
 	if gotPath != want {
 		t.Fatalf("rewritten path = %q, want %q", gotPath, want)
 	}
@@ -71,13 +71,13 @@ func TestNoRewriteWhenPathDoesNotMatch(t *testing.T) {
 	})
 
 	mw, _ := New(context.Background(), next, &Config{
-		DomainSuffix:   "dev7.plainid.cloud",
+		DomainSuffix:   "test.example.com",
 		SourcePath:     "/openid-connect/token",
 		TargetTemplate: "/auth/realms/{tenant}/protocol/openid-connect/token",
 	}, "tenant-token-rewrite")
 
-	req := httptest.NewRequest(http.MethodGet, "http://beta.dev7.plainid.cloud/runtime", nil)
-	req.Host = "beta.dev7.plainid.cloud"
+	req := httptest.NewRequest(http.MethodGet, "http://test.example.com/runtime", nil)
+	req.Host = "test.example.com"
 	rr := httptest.NewRecorder()
 	t.Logf("got path: %s", gotPath)
 

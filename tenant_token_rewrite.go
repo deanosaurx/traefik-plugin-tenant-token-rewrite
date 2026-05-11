@@ -8,11 +8,8 @@ import (
 )
 
 type Config struct {
-	// Example: dev7.plainid.cloud
 	DomainSuffix string `json:"domainSuffix,omitempty"`
-	// Example: /openid-connect/token
 	SourcePath string `json:"sourcePath,omitempty"`
-	// Example: /auth/realms/{tenant}/protocol/openid-connect/token
 	TargetTemplate string `json:"targetTemplate,omitempty"`
 }
 
@@ -69,7 +66,6 @@ func normalizeHost(host string) string {
 	return host
 }
 
-// For host "beta.dev7.plainid.cloud" and suffix "dev7.plainid.cloud" -> "beta".
 func extractTenant(host, suffix string) (string, bool) {
 	suffix = strings.TrimPrefix(strings.TrimSpace(strings.ToLower(suffix)), ".")
 	if suffix == "" {
