@@ -1,4 +1,4 @@
-package traefikplugintenanttokenrewrite
+package traefik_plugin_tenant_token_rewrite
 
 import (
 	"context"
