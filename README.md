@@ -3,13 +3,13 @@
 Rewrites a token endpoint path using tenant extracted from host.
 
 Example:
-- Request host: `beta.dev7.plainid.cloud`
+- Request host: `beta.example.com`
 - Request path: `/openid-connect/token`
 - Rewritten path: `/auth/realms/beta/protocol/openid-connect/token`
 
 ## Config
 
-- `domainSuffix` (string, required): e.g. `dev7.plainid.cloud`
+- `domainSuffix` (string, required): e.g. `example.com`
 - `sourcePath` (string, optional): default `/openid-connect/token`
 - `targetTemplate` (string, optional): default `/auth/realms/{tenant}/protocol/openid-connect/token`
 
